@@ -1,0 +1,13 @@
+name: gh actions for devops
+on: push
+jobs:
+  DevOps-Course-first-job:
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "lets rewrite it in RUST"
+    - name: Show uptime
+      run: uptime
+    - name: Where am I?
+      run: pwd
+    - name: Who am I?
+      run: whoami
