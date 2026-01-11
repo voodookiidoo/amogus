@@ -1,0 +1,34 @@
+---
+- name: установка nginx 
+  apt:
+    update_cache: True
+    name: nginx
+    state: latests
+
+- name: скопировать nginx конфиг из шаблона
+  template:
+    src: 'site.conf.j2'
+    dest: '/etc/nginx/conf.d/side-{{ item }}.conf'
+    ownder: root
+    group: root
+    mode: '0644'
+  loop: '{{ sites }}'
+  notify: restart nginx
+
+
+- name: где искать айтем 
+  ansible.builtin.file:
+    path: '/var/www/{{ item }}/'
+    state: directory
+    mode: '0755'
+  loop: '{{ sites }}'
+
+- name: скопировать индекс хтмл из шаблончика
+  ansible.builtin.template:
+    src: 'index.html.j2'
+    dest: '/var/www/{{ item }}/index.html'
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+  loop: '{{ sites }}'

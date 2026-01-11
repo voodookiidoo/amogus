@@ -1,0 +1,16 @@
+
+- name: установить nginx с виртуальными хостами
+  hosts: webservers
+  remote_user: runner
+  become: true
+  become_method: sudo
+  gather_facts: no
+
+  vars:
+    ssh_private_key: "~/.ssh/id_ed25519"
+    sites:
+      - "google.com"
+      - "yandex.ru"
+      - "yahoo.com"
+  roles:
+    - nginx-vhosts

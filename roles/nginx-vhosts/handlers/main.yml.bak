@@ -1,0 +1,4 @@
+- name: перезапуск nginx службы
+  ansible.builtin.systemd:
+    name: nginx
+    state: restarted
